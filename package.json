@@ -9,8 +9,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/react-redux": "^7.1.4",
+    "@types/redux": "^3.6.0",
+    "@types/redux-saga": "^0.10.5",
+    "immer": "^4.0.1",
     "react": "16.9.0",
-    "react-native": "0.61.2"
+    "react-native": "0.61.2",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.1.1",
+    "typesafe-actions": "^4.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
