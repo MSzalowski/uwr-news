@@ -3,8 +3,6 @@ import createSagaMiddleware from 'redux-saga'
 import newsReducer from './news'
 import rootSaga from './rootSaga'
 
-if (typeof window === 'undefined') (global as any).window = {}
-
 export const sagaMiddleware = createSagaMiddleware()
 
 const composeEnhancers =
