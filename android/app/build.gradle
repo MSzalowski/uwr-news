@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.pam2"
+        applicationId "com.uwr_news"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
