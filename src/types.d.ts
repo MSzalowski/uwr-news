@@ -1,3 +1,3 @@
-declare global {
-  window;
+declare module 'global' {
+  module window {}
 }
