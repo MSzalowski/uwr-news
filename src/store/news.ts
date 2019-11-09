@@ -30,7 +30,6 @@ export default (
         return
       case FETCH_NEWS_SUCCESS:
         draft.loading = true
-        draft.error = null
         draft.news = action.payload
         return
       case FETCH_NEWS_FAILURE:

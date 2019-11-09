@@ -41,13 +41,3 @@ target 'uwr_news' do
 
   use_native_modules!
 end
-
-target 'uwr_news-tvOS' do
-  # Pods for uwr_news-tvOS
-
-  target 'uwr_news-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
