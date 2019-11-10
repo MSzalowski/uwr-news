@@ -1,8 +1,7 @@
 {
   "semi": false,
   "singleQuote": true,
-  "bracketSpacing": false,
-  "jsxBracketSameLine": true,
+  "bracketSpacing": true,
   "trailingComma": "all",
   "printWidth": 80
 }
