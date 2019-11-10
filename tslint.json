@@ -34,6 +34,7 @@
     "curly": true,
     "eofline": true,
     "forin": true,
+    "import-name": false,
     "indent": [true, "spaces", 2],
     "interface-name": [true, "never-prefix"],
     "jsdoc-format": true,
