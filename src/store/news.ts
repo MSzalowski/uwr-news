@@ -1,6 +1,6 @@
-import {action, ActionType} from 'typesafe-actions'
+import { action, ActionType } from 'typesafe-actions'
 import produce from 'immer'
-import {delay, takeEvery} from '@redux-saga/core/effects'
+import { delay, takeEvery, put } from '@redux-saga/core/effects'
 
 const FETCH_NEWS = 'news/FETCH_NEWS'
 const FETCH_NEWS_SUCCESS = 'news/FETCH_NEWS_SUCCESS'
@@ -58,7 +58,7 @@ export function* fetchNewsSaga(action: ReturnType<typeof fetchNews>) {
   try {
     yield delay(500)
   } catch (e) {
-    console.log(e)
+    yield put(fetchNewsFailure(e))
   }
 }
 

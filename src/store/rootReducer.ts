@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, compose} from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import newsReducer from './news'
 import rootSaga from './rootSaga'
