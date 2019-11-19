@@ -2,8 +2,7 @@
   "extends": [
     "tslint:recommended",
     "tslint-config-prettier",
-    "tslint-config-airbnb",
-    "tslint-react"
+    "tslint-config-airbnb"
   ],
   "defaultSeverity": "error",
   "jsRules": {},
@@ -11,16 +10,17 @@
     "quotemark": [true, "single", "jsx-double"],
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "arrow-parens": false,
-    "no-console": [false],
     "no-unused-expression": true,
     "comment-format": false,
+    "arrow-parens": [false, "always"],
+    "ter-arrow-parens": [false, "always"],
+    "no-console": true,
     "semicolon": [true, "never", "ignore-interfaces"],
     "trailing-comma": [
       true,
       {
         "multiline": {
-          "objects": "always",
+          "objects": "ignore",
           "arrays": "always",
           "functions": "ignore",
           "typeLiterals": "ignore"

@@ -1,19 +1,22 @@
-import {createStackNavigator} from 'react-navigation-stack'
-import Home from 'screens/Home'
+import { createAppContainer } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import Dashboard from 'screens/Dashboard'
 import About from 'screens/About'
-import {createAppContainer} from 'react-navigation'
 
 const Navigator = createStackNavigator(
   {
-    Home: {
-      screen: Home,
+    Dashboard: {
+      screen: Dashboard,
     },
     About: {
       screen: About,
     },
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Dashboard',
+    defaultNavigationOptions: {
+      header: null,
+    },
   },
 )
 
