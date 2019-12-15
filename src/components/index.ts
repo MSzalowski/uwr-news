@@ -5,4 +5,4 @@ export {
   LargeSpacer,
   DoubleBaseSpacer,
 } from './spacers'
-export { default as FullScreen } from './FullScreen'
+export { NewsCard } from './Card'

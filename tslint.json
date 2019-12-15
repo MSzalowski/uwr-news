@@ -16,6 +16,7 @@
     "ter-arrow-parens": [false, "always"],
     "no-console": true,
     "semicolon": [true, "never", "ignore-interfaces"],
+    "prefer-array-literal": false,
     "trailing-comma": [
       true,
       {

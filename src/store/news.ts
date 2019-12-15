@@ -1,15 +1,23 @@
 import { action, ActionType } from 'typesafe-actions'
 import produce from 'immer'
-import { delay, takeEvery, put } from '@redux-saga/core/effects'
+import { call, takeEvery, put } from '@redux-saga/core/effects'
+import { fetchNewsRequest } from 'api'
 
 const FETCH_NEWS = 'news/FETCH_NEWS'
 const FETCH_NEWS_SUCCESS = 'news/FETCH_NEWS_SUCCESS'
 const FETCH_NEWS_FAILURE = 'news/FETCH_NEWS_FAILURE'
 
-interface NewsState {
+type Articles = Array<{
+  index?: number
+  title?: string
+  link?: string
+  imageUrl?: string
+}>
+
+export interface NewsState {
   readonly loading: boolean
   readonly error: string | null
-  readonly news: []
+  readonly news: Articles
 }
 
 const initialState: NewsState = {
@@ -26,10 +34,9 @@ export default (
     switch (action.type) {
       case FETCH_NEWS:
         draft.loading = true
-        draft.error = null
         return
       case FETCH_NEWS_SUCCESS:
-        draft.loading = true
+        draft.loading = false
         draft.news = action.payload
         return
       case FETCH_NEWS_FAILURE:
@@ -56,7 +63,8 @@ const actions = {
 
 export function* fetchNewsSaga(action: ReturnType<typeof fetchNews>) {
   try {
-    yield delay(500)
+    const { data } = yield call(fetchNewsRequest)
+    yield put(fetchNewsSuccess(data))
   } catch (e) {
     yield put(fetchNewsFailure(e))
   }
