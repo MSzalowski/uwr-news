@@ -12,6 +12,7 @@ type Articles = Array<{
   title?: string
   link?: string
   imageUrl?: string
+  date?: string
 }>
 
 export interface NewsState {
