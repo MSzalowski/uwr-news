@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react'
-import { withNavigation, FlatList } from 'react-navigation'
+import { withNavigation, FlatList, ScrollView } from 'react-navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { Metrics } from 'themes'
 import { HeaderCard } from 'components/HeaderCard'
 import { View, Text } from 'react-native'
 import { fetchNews, NewsState } from 'store/news'
-import { SmallSpacer } from 'components'
-import {
-  Container,
-  HeaderText,
-  LatestNewsContainer,
-  OldestNewsTitle,
-} from './components'
+import { SmallSpacer, DoubleBaseSpacer } from 'components'
+import { WIDGET_WIDTH, WIDGET_HEIGHT } from 'components/HeaderCard/components'
+import { HeaderText, OldestNewsTitle } from './components'
 
 interface ArticleItem {
   item: {
@@ -24,24 +20,25 @@ interface ArticleItem {
 }
 
 const Dashboard: React.FC = () => {
-  const dispatch = useDispatch()
   const { news, loading } = useSelector((state: NewsState) => state)
+  const dispatch = useDispatch()
 
   const renderItem = ({ item }: ArticleItem) => (
     <View
       style={{
-        paddingBottom: Metrics.baseMargin,
-        width: 185,
         overflow: 'hidden',
+        marginLeft: Metrics.smallMargin,
+        marginRight: Metrics.smallMargin,
       }}
     >
-      <HeaderCard imageUrl={item.imageUrl} link={item.link} noPadding />
+      <HeaderCard imageUrl={item.imageUrl} link={item.link} />
       <SmallSpacer />
       <Text
         style={{
-          width: 150,
+          width: WIDGET_WIDTH / 2 - Metrics.doubleBaseMargin,
           color: 'black',
-          fontSize: 14,
+          paddingLeft: Metrics.baseMargin,
+          fontSize: 12,
           fontFamily: 'Lato-Black',
         }}
         numberOfLines={1}
@@ -49,11 +46,17 @@ const Dashboard: React.FC = () => {
         {item.title}
       </Text>
       <Text
-        style={{ width: 185, color: '#424242', fontSize: 10 }}
+        style={{
+          width: WIDGET_WIDTH / 2 - Metrics.doubleBaseMargin,
+          paddingLeft: Metrics.baseMargin,
+          color: '#424242',
+          fontSize: 12,
+        }}
         numberOfLines={1}
       >
         {item.date}
       </Text>
+      <DoubleBaseSpacer />
     </View>
   )
 
@@ -62,50 +65,64 @@ const Dashboard: React.FC = () => {
   }, [])
 
   return (
-    <Container>
-      <View style={{ flex: 0.4 }}>
-        <HeaderText style={{ fontFamily: 'Lato-Black' }}>Najnowsze</HeaderText>
-        <LatestNewsContainer
-          horizontal
-          contentContainerStyle={{
-            paddingHorizontal: Metrics.smallMargin,
-          }}
-        >
-          {loading ? (
-            <HeaderCard large loading />
-          ) : (
-            [...Array(4).keys()].map(key => (
-              <HeaderCard
-                large
-                title={news[key]?.title}
-                imageUrl={news[key]?.imageUrl}
-                link={news[key]?.link}
-              />
-            ))
-          )}
-        </LatestNewsContainer>
+    <>
+      <View
+        style={{
+          marginTop: Metrics.statusBarHeight + Metrics.doubleBaseMargin,
+          marginLeft: Metrics.baseMargin,
+          marginRight: Metrics.baseMargin,
+          marginBottom: Metrics.doubleBaseMargin,
+        }}
+      >
+        <HeaderText>Najnowsze</HeaderText>
       </View>
+      <ScrollView
+        style={{
+          minHeight: WIDGET_HEIGHT,
+        }}
+        contentContainerStyle={{
+          paddingHorizontal: Metrics.baseMargin,
+          paddingRight: 0,
+        }}
+        horizontal
+      >
+        {loading ? (
+          <HeaderCard large loading />
+        ) : (
+          [...Array(4).keys()].map(key => (
+            <HeaderCard
+              large
+              title={news[key]?.title}
+              imageUrl={news[key]?.imageUrl}
+              link={news[key]?.link}
+            />
+          ))
+        )}
+      </ScrollView>
       {!loading && (
-        <View style={{ flex: 0.6 }}>
-          <OldestNewsTitle style={{ fontFamily: 'Lato-Black' }}>
-            Wcześniej
-          </OldestNewsTitle>
-          <FlatList
+        <>
+          <View
             style={{
-              alignSelf: 'center',
-              marginTop: Metrics.smallMargin,
+              marginTop: Metrics.baseMargin,
+              marginLeft: Metrics.baseMargin,
+              marginBottom: Metrics.baseMargin,
             }}
+          >
+            <OldestNewsTitle>Wcześniej</OldestNewsTitle>
+          </View>
+          <FlatList
+            style={{ alignSelf: 'center' }}
             contentContainerStyle={{
-              paddingVertical: Metrics.smallMargin,
+              flexGrow: 1,
             }}
             data={news.slice(4, news.length)}
             renderItem={renderItem}
             keyExtractor={item => item.link!}
             numColumns={2}
           />
-        </View>
+        </>
       )}
-    </Container>
+    </>
   )
 }
 
