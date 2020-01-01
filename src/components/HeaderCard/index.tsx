@@ -10,36 +10,37 @@ interface Props {
   title?: string
   large?: boolean
   link?: string
-  noPadding?: boolean
 }
 
-export const HeaderCard = React.memo<Props>(
-  ({ imageUrl, title, loading, large, noPadding }) => (
-    <Container
+export const HeaderCard: React.FC<Props> = ({
+  imageUrl,
+  title,
+  loading,
+  large,
+}) => (
+  <Container
+    source={{ uri: imageUrl! }}
+    style={{ overflow: 'hidden' }}
+    large={large}
+  >
+    <Image
       source={{ uri: imageUrl! }}
-      style={{ overflow: 'hidden' }}
-      large={large}
-      noPadding={noPadding}
-    >
-      <Image
-        source={{ uri: imageUrl! }}
-        style={{ alignSelf: 'center', flex: 1 }}
-      />
-      {loading && (
-        <View style={[StyleSheet.absoluteFillObject, { flex: 1 }]}>
-          <LottieView
-            source={require('assets/loading-animation.json')}
-            autoPlay
-            loop
-            resizeMode="cover"
-          />
-        </View>
-      )}
-      {large && title && (
-        <TitleContainer>
-          <Title numberOfLines={1}>{title}</Title>
-        </TitleContainer>
-      )}
-    </Container>
-  ),
+      style={{ alignSelf: 'center', flex: 1 }}
+    />
+    {loading && (
+      <View style={[StyleSheet.absoluteFillObject, { flex: 1 }]}>
+        <LottieView
+          source={require('assets/loading-animation.json')}
+          autoPlay
+          loop
+          resizeMode="cover"
+        />
+      </View>
+    )}
+    {large && title && (
+      <TitleContainer>
+        <Title numberOfLines={1}>{title}</Title>
+      </TitleContainer>
+    )}
+  </Container>
 )
