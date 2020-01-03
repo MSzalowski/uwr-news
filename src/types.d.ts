@@ -1,7 +1,8 @@
-import rootReducer from './store/rootReducer'
+import { AnyAction } from 'redux'
+import { Reducer } from 'react'
+import rootReducer from 'store/rootReducer'
 
 // tslint:disable:no-any
-
 declare module 'Types' {
   // StateType is copied from typesafe-actions library
   export type StateType<ReducerOrMap> = ReducerOrMap extends (
@@ -30,8 +31,4 @@ declare module 'Types' {
     // immutable
     readonly current: T | null
   }
-}
-
-declare module 'global' {
-  module window {}
 }

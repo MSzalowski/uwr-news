@@ -22,6 +22,8 @@
     ]
   },
   "dependencies": {
+    "@react-navigation/native": "^5.0.0-alpha.22",
+    "@types/": "react-navigation/native",
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.146",
     "@types/react-native-vector-icons": "^6.4.4",

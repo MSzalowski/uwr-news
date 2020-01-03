@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Metrics } from 'themes'
 import { HeaderCard } from 'components/HeaderCard'
 import { View, Text } from 'react-native'
-import { fetchNews, NewsState } from 'store/news'
+import { fetchNews } from 'store/news'
 import { SmallSpacer, DoubleBaseSpacer } from 'components'
 import { WIDGET_WIDTH, WIDGET_HEIGHT } from 'components/HeaderCard/components'
+import { RootState } from 'Types'
 import { HeaderText, OldestNewsTitle } from './components'
 
 interface ArticleItem {
@@ -20,7 +21,9 @@ interface ArticleItem {
 }
 
 const Dashboard: React.FC = () => {
-  const { news, loading } = useSelector((state: NewsState) => state)
+  const { news, loading } = useSelector(
+    (state: RootState) => state?.newsReducer,
+  )
   const dispatch = useDispatch()
 
   const renderItem = ({ item }: ArticleItem) => (
