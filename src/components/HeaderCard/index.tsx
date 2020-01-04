@@ -2,8 +2,8 @@ import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import LottieView from 'lottie-react-native'
-import { Container, TitleContainer, Title } from './components'
 import { withNavigation } from 'react-navigation'
+import { Container, TitleContainer, Title } from './components'
 
 interface Props {
   loading?: boolean
