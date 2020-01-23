@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { withNavigation, NavigationInjectedProps } from 'react-navigation'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, View, Image, TouchableWithoutFeedback } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchNewsDetails } from 'store/news'
 import { BaseSpacer } from 'components'
@@ -37,6 +37,19 @@ export default withNavigation((props: NavigationInjectedProps) => {
   const goBack = () => {
     props.navigation.goBack()
   }
+
+  const renderImages = (src: string) => (
+    <TouchableWithoutFeedback
+      onPress={() => props.navigation.navigate('ImageDetails', { src })}
+    >
+      <Image
+        key={src}
+        source={{ uri: src }}
+        resizeMode="contain"
+        style={{ flex: 1, minHeight: 300 }}
+      />
+    </TouchableWithoutFeedback>
+  )
 
   return (
     <>
@@ -82,8 +95,9 @@ export default withNavigation((props: NavigationInjectedProps) => {
           <>
             <Title>{news.title}</Title>
             <BaseSpacer />
-            <ScrollView>
+            <ScrollView style={{ flex: 1 }}>
               <Body>{news?.body}</Body>
+              {news?.images?.length! > 0 && news?.images?.map(renderImages)}
             </ScrollView>
           </>
         )}
