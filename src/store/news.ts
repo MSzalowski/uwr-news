@@ -17,6 +17,7 @@ type Articles = Array<{
   imageUrl?: string
   date?: string
   body?: string
+  images?: string[]
 }>
 
 export interface NewsState {
@@ -56,7 +57,8 @@ export default (
           el => el.link === action.payload.link,
         )
         if (searchedNews) {
-          searchedNews.body = action.payload.body
+          searchedNews.body = action.payload.data.body
+          searchedNews.images = action.payload.data.images
         }
         draft.loading = false
         return
@@ -79,8 +81,10 @@ export const fetchNewsFailure = (error: string) =>
 export const fetchNewsDetails = (link: string) =>
   action(FETCH_NEWS_DETAILS, link)
 
-export const fetchNewsDetailsSuccess = (link: string, body: string) =>
-  action(FETCH_NEWS_DETAILS_SUCCESS, { link, body })
+export const fetchNewsDetailsSuccess = (
+  link: string,
+  data: { body: string; images: string[] },
+) => action(FETCH_NEWS_DETAILS_SUCCESS, { link, data })
 
 export const fetchNewsDetailsFailure = (error: string) =>
   action(FETCH_NEWS_DETAILS_FAILURE, error)
@@ -108,7 +112,12 @@ export function* fetchNewsDetailsSaga(
 ) {
   try {
     const { data } = yield call(fetchNewsDetailsRequest, action.payload)
-    yield put(fetchNewsDetailsSuccess(action.payload, data.body))
+    yield put(
+      fetchNewsDetailsSuccess(action.payload, {
+        body: data.body,
+        images: data.images,
+      }),
+    )
   } catch (e) {
     yield put(fetchNewsFailure(e))
   }

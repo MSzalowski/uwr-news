@@ -2,6 +2,7 @@ import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import Dashboard from 'screens/Dashboard'
 import NewsDetails from 'screens/NewsDetails'
+import ImageDetails from 'screens/ImageDetails'
 
 const Navigator = createStackNavigator(
   {
@@ -10,6 +11,9 @@ const Navigator = createStackNavigator(
     },
     Details: {
       screen: NewsDetails,
+    },
+    ImageDetails: {
+      screen: ImageDetails,
     },
   },
   {
