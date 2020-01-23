@@ -3,12 +3,15 @@ import { withNavigation, FlatList, ScrollView } from 'react-navigation'
 import { useDispatch, useSelector } from 'react-redux'
 import { Metrics } from 'themes'
 import { HeaderCard } from 'components/HeaderCard'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { fetchNews } from 'store/news'
 import { SmallSpacer, DoubleBaseSpacer } from 'components'
 import { WIDGET_WIDTH, WIDGET_HEIGHT } from 'components/HeaderCard/components'
 import { RootState } from 'Types'
-import { HeaderText, OldestNewsTitle } from './components'
+import { Background } from 'components/Background'
+import { IconButton } from 'react-native-paper'
+import { changeTheme } from 'store/app'
+import { ThemeText } from 'components/ThemeText'
 
 interface ArticleItem {
   item: {
@@ -24,7 +27,12 @@ const Dashboard: React.FC = () => {
   const { news, loading } = useSelector(
     (state: RootState) => state?.newsReducer,
   )
+  const { lightTheme } = useSelector((state: RootState) => state.appReducer)
   const dispatch = useDispatch()
+
+  const handleThemeChange = () => {
+    dispatch(changeTheme())
+  }
 
   const renderItem = ({ item }: ArticleItem) => (
     <View
@@ -36,29 +44,30 @@ const Dashboard: React.FC = () => {
     >
       <HeaderCard imageUrl={item.imageUrl} link={item.link} />
       <SmallSpacer />
-      <Text
+      <ThemeText
+        numberOfLines={1}
+        colorType="primary"
         style={{
           width: WIDGET_WIDTH / 2 - Metrics.doubleBaseMargin,
-          color: 'black',
           paddingLeft: Metrics.baseMargin,
+          paddingRight: Metrics.baseMargin,
           fontSize: 12,
           fontFamily: 'Lato-Black',
         }}
-        numberOfLines={1}
       >
         {item.title}
-      </Text>
-      <Text
+      </ThemeText>
+      <ThemeText
+        colorType="primaryLight"
         style={{
           width: WIDGET_WIDTH / 2 - Metrics.doubleBaseMargin,
           paddingLeft: Metrics.baseMargin,
-          color: '#424242',
           fontSize: 12,
         }}
         numberOfLines={1}
       >
         {item.date}
-      </Text>
+      </ThemeText>
       <DoubleBaseSpacer />
     </View>
   )
@@ -68,16 +77,34 @@ const Dashboard: React.FC = () => {
   }, [])
 
   return (
-    <>
+    <Background>
       <View
         style={{
           marginTop: Metrics.statusBarHeight + Metrics.doubleBaseMargin,
           marginLeft: Metrics.baseMargin,
           marginRight: Metrics.baseMargin,
           marginBottom: Metrics.doubleBaseMargin,
+          flexDirection: 'row',
         }}
       >
-        <HeaderText>Najnowsze</HeaderText>
+        <ThemeText
+          colorType="primary"
+          style={{
+            flex: 1,
+            fontFamily: 'Lato-Black',
+            lineHeight: 32,
+            fontSize: 32,
+            fontWeight: '600',
+          }}
+        >
+          Najnowsze
+        </ThemeText>
+        <IconButton
+          icon="lightbulb"
+          size={16}
+          color={lightTheme ? 'rgba(0,0,0,0.88)' : '#fa7921'}
+          onPress={handleThemeChange}
+        />
       </View>
       <ScrollView
         style={{
@@ -111,7 +138,12 @@ const Dashboard: React.FC = () => {
               marginBottom: Metrics.baseMargin,
             }}
           >
-            <OldestNewsTitle>Wcześniej</OldestNewsTitle>
+            <ThemeText
+              style={{ fontSize: 16, fontWeight: '500' }}
+              colorType="primary"
+            >
+              Wcześniej
+            </ThemeText>
           </View>
           <FlatList
             style={{ alignSelf: 'center' }}
@@ -125,7 +157,7 @@ const Dashboard: React.FC = () => {
           />
         </>
       )}
-    </>
+    </Background>
   )
 }
 

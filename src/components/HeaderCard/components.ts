@@ -16,13 +16,13 @@ export const Container = styled(ImageBackground)<{
 
 export const TitleContainer = styled(View)`
   padding: ${Metrics.baseMargin}px ${Metrics.smallMargin}px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.88);
 `
 
 export const Title = styled(Text)`
   font-size: 12;
   text-align: center;
+  color: rgba(255, 255, 255, 0.88);
   font-family: 'Lato-Black';
-  color: white;
   font-weight: 600;
 `

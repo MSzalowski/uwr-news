@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { Metrics } from 'themes'
 
 export const DateAndNightModeSwitchContainer = styled(View)`
@@ -11,20 +11,6 @@ export const DateAndNightModeSwitchContainer = styled(View)`
 export const ContentContainer = styled(View)`
   margin: 0 ${Metrics.doubleBaseMargin}px;
   flex: 1;
-`
-
-export const Title = styled(Text)`
-  font-size: 24;
-  font-weight: 600;
-  font-family: 'FiraMono-Regular';
-  color: 'rgba(0,0,0,0.88)';
-`
-
-export const Body = styled(Text)`
-  font-size: 16;
-  text-align: justify;
-  font-family: 'Lato-Light';
-  color: 'rgba(0,0,0,0.88)';
 `
 
 export const Header = styled(View)`
